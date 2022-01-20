@@ -1,23 +1,45 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { get_OBJ_by_ID, getPrice } from '../AllObjects/items_in_product';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { get_OBJ_by_ID } from '../AllObjects/items_in_product';
 import price_per_serving from '../AllObjects/price_per_serving';
 let type;
 let name;
 let anount;
-export const items_in_order_Slice = createSlice({
-  name: 'salads_per_serving',
+export const fetchItemsInOrders = createAsyncThunk(
+  'items_in_order/fetchItemsInOrders',
+  async () => {
+    try {
+      const response = await axios.post(
+        'http://localhost:3001/RestDataFormats_Obj',
+        {
+          type: 'OrdersOBJ',
+        }
+      );
+      return response[0].obj;
+    } catch (error) {
+      throw Error(error);
+    }
+  }
+);
+export const itemsInOrderSlice = createSlice({
+  name: 'items_in_order',
   initialState: {
-    //
-    salads: get_OBJ_by_ID('salads'),
-    sauces: get_OBJ_by_ID('sauces'),
-    breads: get_OBJ_by_ID('breads'),
-    meat: get_OBJ_by_ID('meat'),
-    drink: get_OBJ_by_ID('drink'),
-    prices_of_servings_array: [],
+    obj: {
+      salads: {},
+      sauces: {},
+      breads: {},
+      extras: {},
+      meat: {},
+      drink: {},
+      //prices_of_servings_array: [],
+    },
   },
   reducers: {
+    setValues: (state, action) => {
+      state[action.payload['key']] = action.payload['value'];
+    },
     //prices_of_servings_array
-    create_Array_Prices: (state) => {
+    /* createArrayPrices: (state) => {
       let sum = 0;
       let meatType,
         breadType = 'burger_bun';
@@ -42,8 +64,8 @@ export const items_in_order_Slice = createSlice({
       new_Price_Obj.bread = breadType;
       new_Price_Obj.meat = meatType;
       new_Price_Obj.price = sum;
-      console.log(new_Price_Obj);
-    },
+      state.prices_of_servings_array.push(new_Price_Obj);
+    },*/
     decrement: (state, action) => {
       type = action.payload['type'];
       name = action.payload['name'];
@@ -138,8 +160,22 @@ export const items_in_order_Slice = createSlice({
       }
     },
   },
+  extraReducers: {
+    [fetchItemsInOrders.pending]: (state, action) => {
+      state.loading = true;
+      state.error = null;
+    },
+    [fetchItemsInOrders.fulfilled]: (state, action) => {
+      state = action.payload.fulfilled;
+      state.loading = false;
+    },
+    [fetchItemsInOrders.rejected]: (state, action) => {
+      state.error = action.error.message;
+      state.loading = false;
+    },
+  },
 });
 // Action creators are generated for each case reducer function
-export const { increment, decrement, clear, create_Array_Prices } =
-  items_in_order_Slice.actions;
-export default items_in_order_Slice.reducer;
+export const { increment, decrement, clear, createArrayPrices, setValues } =
+  itemsInOrderSlice.actions;
+export default itemsInOrderSlice.reducer;

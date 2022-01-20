@@ -1,26 +1,35 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+//import { set_OBJ_by_ID } from '../AllObjects/items_in_product';
 import {
-  create_Array_Prices,
+  createArrayPrices,
   decrement,
   increment,
+  setValues,
 } from '../redux/salads_per_serving';
 const axios = require('axios');
 const Home = () => {
-  //const [image, setImage] = useState(window.location.pathname.toString());
+  //const itemsInOrder = useSelector((state) => state.items_in_order);
   const user = useSelector((state) => state.user_reducer);
   const dispatch = useDispatch();
-  const itemsInOrder = useSelector((state) => state.items_in_order);
-  useEffect(async () => {
-    const instance = await axios.get('http://localhost:3001/');
 
-    let itemsInProduct = instance.data[1];
-    //console.log(itemsInProduct);
-  });
+  /*useEffect(async () => {
+    const instance = await axios.get(
+      'http://localhost:3001/RestDataFormatsDataObj'
+    );
+
+    let itemsInProduct = instance.data;
+    for (let i in itemsInProduct) {
+      if (i !== '_id' && i != 'name') {
+        console.log(i);
+        dispatch(setValus({ key: i, value: itemsInProduct[i] }));
+      }
+    }
+  });*/
   return (
     <React.Fragment>
-      <button onClick={() => dispatch(create_Array_Prices())}>+-+</button>
+      <button onClick={() => dispatch(createArrayPrices())}>+-+</button>
       <button
         onClick={() => dispatch(increment({ type: 'meat', name: 'burger' }))}
       >

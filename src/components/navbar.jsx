@@ -1,24 +1,24 @@
 import React from 'react';
 import '../CSS/navBar.css';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import '../pages/routing';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { setValuesByKey } from '../redux/user';
 import * as Icon from 'react-bootstrap-icons';
-import LogOut from './logout';
-function logOut(props) {
+function logOut(dispatch) {
   let text = 'אתה בטוח שאתה רוצה להתנתק';
   if (window.confirm(text) === true)
-    props.dispatch(setValuesByKey({ key: 'name', value: '' }));
+    dispatch(setValuesByKey({ key: 'name', value: '' }));
 }
-
-const Navbar = (props) => {
+const Navbar = () => {
+  const user = useSelector((state) => state.user_reducer);
+  const dispatch = useDispatch();
   return (
     <React.Fragment>
       <nav className="navbar navbar-expand-lg navbar bg-dark">
         <div className="container-fluid">
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            {props.user.name === '' ? (
+            {user.name === '' ? (
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
                   <NavLink className="nav-link" to="/CreateUser">
@@ -36,7 +36,7 @@ const Navbar = (props) => {
             ) : (
               <NavLink
                 className="nav-link"
-                onClick={() => logOut(props)}
+                onClick={() => logOut(dispatch)}
                 to="/"
               >
                 יציאה&nbsp;

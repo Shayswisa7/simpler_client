@@ -8,7 +8,7 @@ import Menu from './menu';
 import NOTFOUND from './notFound';
 import UserPage from './userPage';
 
-const AllRoutes = (props) => {
+const AllRoutes = () => {
   return (
     <Routes>
       {/*Route of cart page.*/}

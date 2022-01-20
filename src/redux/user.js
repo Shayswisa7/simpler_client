@@ -7,8 +7,8 @@ export const userSlice = createSlice({
     email: '',
     phoneNumber: '',
     password: '',
-    friendsList: {},
-    savedOrderList: {},
+    friendsList: [],
+    savedOrderList: [],
   },
   reducers: {
     //Settimg for all values of user_reducer.
@@ -17,6 +17,7 @@ export const userSlice = createSlice({
       state.email = action.payload.email;
       state.phoneNumber = action.payload.phoneNumber;
       state.password = action.payload.password;
+      //window.localStorage('user', state);
     },
     setValuesByKey: (state, action) => {
       switch (action.payload['key']) {

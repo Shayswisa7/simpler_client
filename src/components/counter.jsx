@@ -1,10 +1,12 @@
-import React, { useState } from "react";
-const Counter = ({name}) =>{
-  return (<React.Fragment>
-    <button>+</button>
-    <button>-</button>
-    <button>בצד</button>
-  </React.Fragment>);
-}
+import React from 'react';
+const counter = () => {
+  return (
+    <React.Fragment>
+      <button>+</button>
+      <button>-</button>
+      <button>בצד</button>
+    </React.Fragment>
+  );
+};
 
-export default Counter;
+export default counter;
