@@ -1,5 +1,8 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import Business from '../components/menuBusiness';
+import CreateOrder from '../components/menuCreateOrder';
+import SaveOrder from '../components/menuSaveOrders';
 import Cart from './cart';
 import CreateUser from './createUser';
 import Home from './home';
@@ -27,6 +30,25 @@ const AllRoutes = () => {
       <Route id="menu" path="/Menu" element={<Menu />}></Route>
       {/*Route of userPage.*/}
       <Route id="userPage" path="/UserPage" element={<UserPage />}></Route>
+
+      {/*Route of menu pages.
+      _______________________________________________________________________________
+      */}
+      {/*Route of business pages.*/}
+      <Route
+        id="business"
+        path="/menu/business"
+        element={<Business />}
+        exact={true}
+      />
+      {/*Route of createOrder pages.*/}
+      <Route
+        id="createOrder"
+        path="/menu/createOrder"
+        element={<CreateOrder />}
+      />
+      {/*Route of saveOrder pages.*/}
+      <Route id="saveOrder" path="/menu/saveOrder" element={<SaveOrder />} />
       {/*Route of NOTFOUND page.*/}
       <Route path="*" element={<NOTFOUND />} />
     </Routes>

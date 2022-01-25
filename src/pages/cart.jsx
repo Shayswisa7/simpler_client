@@ -2,9 +2,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 export default function Cart() {
-  const item = useSelector((state) => state.items_in_order);
+  const item = useSelector((state) => state.itemsInOrder);
   //const dispatch= useDispatch();
-  console.log('Cart', item);
+  console.log('Cart', item.obj);
+
   return (
     <React.Fragment>
       <p>Cart</p>
