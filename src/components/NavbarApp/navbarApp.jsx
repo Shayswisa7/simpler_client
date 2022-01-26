@@ -1,9 +1,8 @@
 import React from 'react';
-import '../CSS/navBar.css';
 import { NavLink } from 'react-router-dom';
-import '../pages/routingAppPages';
+import '../../pages/routingAppPages';
 import { useSelector, useDispatch } from 'react-redux';
-import { postUser, setValuesByKey } from '../redux/user';
+import { postUser, setValuesByKey } from '../../redux/user';
 import * as Icon from 'react-bootstrap-icons';
 function logOut(dispatch) {
   let text = 'אתה בטוח שאתה רוצה להתנתק';
@@ -12,6 +11,7 @@ function logOut(dispatch) {
 }
 const NavbarApp = () => {
   const user = useSelector((state) => state.user);
+  const fullOrder = useSelector((state) => state.fullOrder);
   const dispatch = useDispatch();
   console.log(user.obj !== undefined ? user : '', 'ggg');
   return (
@@ -56,7 +56,8 @@ const NavbarApp = () => {
               </li>
               <li className="nav-item">
                 <NavLink className="nav-link" to="/Cart">
-                  ({4})הזמנות&nbsp;
+                  ({!fullOrder.obj.orders ? 0 : fullOrder.obj.orders.length}
+                  )הזמנות&nbsp;
                   <Icon.InboxesFill />
                 </NavLink>
               </li>

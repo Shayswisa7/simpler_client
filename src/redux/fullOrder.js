@@ -35,36 +35,37 @@ export const fullOrderSlice = createSlice({
       state.obj[action.payload['key']] = action.payload['value'];
     },
     addOrder: (state, action) => {
-      let order = action.payload.obj;
+      let order = action.payload;
       let prices = {};
       let sum = 0;
       for (let i in order) {
-        for (let j in order[i]) {
-          sum += order[i][j].prices[order[i][j].pos];
-          switch (i) {
-            case 'breads':
-              if (order[i][j].pos != 0) prices.bread = j;
-              break;
-            case 'drink':
-              if (order[i][j].pos != 0) prices.drink = j;
-              break;
-            case 'extras':
-              if (order[i][j].pos != 0) prices.extra = j;
-              break;
-            case 'meat':
-              if (order[i][j].pos != 0) prices.meat = j;
-              break;
-            default:
-              break;
+        if (i !== 'name')
+          for (let j in order[i]) {
+            sum += order[i][j].prices[order[i][j].pos];
+            switch (i) {
+              case 'breads':
+                if (order[i][j].pos !== 0) prices.bread = j;
+                break;
+              case 'drink':
+                if (order[i][j].pos !== 0) prices.drink = j;
+                break;
+              case 'extras':
+                if (order[i][j].pos !== 0) prices.extra = j;
+                break;
+              case 'meat':
+                if (order[i][j].pos !== 0) prices.meat = j;
+                break;
+              default:
+                break;
+            }
           }
-        }
       }
       prices.sumPrice = sum;
       state.obj.price.push(prices);
       state.obj.orders.push(order);
       state.obj.shipping = action.payload['shipping'];
     },
-    editOrder: (state, actions) => {
+    editOrder: (state, action) => {
       for (let i in state.obj.orders) {
         if (state.obj.orders[i].name === action.payload['name']) {
           state.obj.orders[i] = action.payload;
@@ -86,5 +87,5 @@ export const fullOrderSlice = createSlice({
   },
 });
 
-export const {} = fullOrderSlice.actions;
+export const { addDitailsUser, addOrder, editOrder } = fullOrderSlice.actions;
 export default fullOrderSlice.reducer;

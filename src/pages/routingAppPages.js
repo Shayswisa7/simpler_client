@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Business from '../components/menuBusiness';
-import CreateOrder from '../components/menuCreateOrder';
-import SaveOrder from '../components/menuSaveOrders';
+import Business from '../components/MenuBusiness/menuBusiness';
+import CreateOrder from '../components/MenuCreateOrder/menuCreateOrder';
+import SaveOrder from '../components/MenuSaveOrders/menuSaveOrders';
 import Cart from './cart';
 import CreateUser from './createUser';
 import Home from './home';

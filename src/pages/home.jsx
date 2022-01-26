@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 const Home = () => {
   //const itemsInOrder = useSelector((state) => state.items_in_order);
   const user = useSelector((state) => state.user);
+
   const dispatch = useDispatch();
 
   return (

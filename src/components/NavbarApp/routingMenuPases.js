@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Business from './menuBusiness';
-import Cart from '../pages/cart';
-import CreateUser from '../pages/createUser';
-import NOTFOUND from '../pages/notFound';
-import CreateOrder from './menuCreateOrder';
-import SaveOrder from './menuSaveOrders';
+import Business from '../MenuBusiness/menuBusiness';
+import Cart from '../../pages/cart';
+import CreateUser from '../../pages/createUser';
+import NOTFOUND from '../../pages/notFound';
+import CreateOrder from '../MenuCreateOrder/menuCreateOrder';
+import SaveOrder from '../MenuSaveOrders/menuSaveOrders';
 
 const AllRoutesMenu = () => {
   return (

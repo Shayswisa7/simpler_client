@@ -1,12 +1,12 @@
 import React from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Counter from '../components/counter';
-import Business from '../components/menuBusiness';
-import CreateOrder from '../components/menuCreateOrder';
-import SaveOrder from '../components/menuSaveOrders';
-import NavbarMenu from '../components/navbarMenu';
-import AllRoutesMenu from '../components/routingMenuPases';
+import Counter from '../components/Features/counter';
+import Business from '../components/MenuBusiness/menuBusiness';
+import CreateOrder from '../components/MenuCreateOrder/menuCreateOrder';
+import SaveOrder from '../components/MenuSaveOrders/menuSaveOrders';
+import NavbarMenu from '../components/NavbarApp/navbarMenu';
+import AllRoutesMenu from '../components/NavbarApp/routingMenuPases';
 import AllRoutes from './routingAppPages';
 
 const Menu = () => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { decrement, increment, aside } from '../redux/itemsInOrder';
+import { decrement, increment, aside } from '../../redux/itemsInOrder';
 var ButtonPlus = styled.button`
   background: lightGreen;
 `;

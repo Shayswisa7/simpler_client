@@ -1,5 +1,5 @@
 import React from 'react';
-import Counter from './counter';
+import Counter from '../Features/counter';
 const SaveOrder = () => {
   return (
     <React.Fragment>
