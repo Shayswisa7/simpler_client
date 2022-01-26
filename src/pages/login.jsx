@@ -1,8 +1,19 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { setValues, setValuesByKey, addFriend } from '../redux/user';
-const Login = (props) => {
+import { setValues as setValuesAction } from '../redux/user';
+const Login = () => {
+  //const user = useSelector((state) => state.user_reducer);
+  const dispatch = useDispatch();
+  const shay = {
+    firstName: 'shay',
+    lastName: 'swisa',
+    email: 'shay@gmail.com',
+    phoneNumber: '0547996239',
+    password: '1111',
+    saveOrderList: [],
+    friendsList: [],
+  };
   return (
     <React.Fragment>
       <br />
@@ -55,13 +66,10 @@ const Login = (props) => {
             <NavLink
               to="/"
               onClick={() =>
-                props.dispatch(
-                  setValues({
-                    name: 'shay',
-                    email: 'shay@gmail.com',
-                    phoneNumber: '0547996239',
-                    password: '1111',
-                  })
+                dispatch(
+                  //עדכון השרת
+                  setValuesAction(shay),
+                  console.log('בדיקה עם קיים במערכת')
                 )
               }
               style={{

@@ -1,50 +1,55 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
+export const postUser = createAsyncThunk('userReducer/fetchUser', async () => {
+  const user = await axios.post('http://localhost:3001/RestDataFormats_Obj', {
+    type: 'User',
+  });
+  return user.data;
+});
 export const userSlice = createSlice({
-  name: 'user_reducer',
+  name: 'userReducer',
   initialState: {
-    name: '',
-    email: '',
-    phoneNumber: '',
-    password: '',
-    friendsList: {},
-    savedOrderList: {},
+    obj: {},
+    status: null,
   },
   reducers: {
     //Settimg for all values of user_reducer.
     setValues: (state, action) => {
-      state.name = action.payload.name;
-      state.email = action.payload.email;
-      state.phoneNumber = action.payload.phoneNumber;
-      state.password = action.payload.password;
+      state.obj = action.payload;
+      //window.localStorage('user', state);
     },
     setValuesByKey: (state, action) => {
-      switch (action.payload['key']) {
-        case 'name':
-          state.name = action.payload['value'];
+      state.obj[action.payload['key']] = action.payload['value'];
+      /*switch (action.payload['key']) {
+        case 'firstName':
+          state.obj.firstName = action.payload['value'];
+          break;
+        case 'lastName':
+          state.obj.lastName = action.payload['value'];
           break;
         case 'email':
-          state.email = action.payload['value'];
+          state.obj.email = action.payload['value'];
           break;
         case 'phoneNumber':
-          state.phoneNumber = action.payload['value'];
+          state.obj.phoneNumber = action.payload['value'];
           break;
         case 'password':
-          state.password = action.payload['value'];
+          state.obj.password = action.payload['value'];
           break;
         default:
           throw new Error();
-      }
+      }*/
     },
     //Add and delete friends.
     addFriend: (state, action) => {
       switch (action.payload['key']) {
         case 'add':
-          state.friendsList[action.payload['value'].phoneNumber] =
+          state.obj.friendsList[action.payload['value'].phoneNumber] =
             action.payload['value'];
           break;
         case 'remove':
-          state.friendsList[action.payload['value'].phoneNumber] = null;
+          state.obj.friendsList[action.payload['value'].phoneNumber] = null;
           break;
         default:
           throw new Error();
@@ -53,15 +58,27 @@ export const userSlice = createSlice({
     addOrder: (state, action) => {
       switch (action.payload['key']) {
         case 'add':
-          state.savedOrderList[action.payload['value'].phoneNumber] =
+          state.obj.savedOrderList[action.payload['value'].phoneNumber] =
             action.payload['value'];
           break;
         case 'remove':
-          state.savedOrderList[action.payload['value'].phoneNumber] = null;
+          state.obj.savedOrderList[action.payload['value'].phoneNumber] = null;
           break;
         default:
           throw new Error();
       }
+    },
+  },
+  extraReducers: {
+    [postUser.pending]: (state, action) => {
+      state.status = 'loading';
+    },
+    [postUser.fulfilled]: (state, action) => {
+      state.obj = action.payload.obj;
+      state.status = 'success';
+    },
+    [postUser.rejected]: (state, action) => {
+      state.status = 'failed';
     },
   },
 });

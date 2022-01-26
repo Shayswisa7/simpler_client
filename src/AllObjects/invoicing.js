@@ -1,8 +1,8 @@
-const invoicing = {
+const fullOrder = {
   id_phoneNumber: 0,
   orders: [],
-  orderTime: [],
+  orderTime: '',
   price: [],
 };
 
-export default invoicing;
+export default fullOrder;

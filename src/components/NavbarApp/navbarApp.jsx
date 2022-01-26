@@ -1,24 +1,25 @@
 import React from 'react';
-import '../CSS/navBar.css';
-import { Link, NavLink } from 'react-router-dom';
-import '../pages/routing';
-import { useSelector } from 'react-redux';
-import { setValuesByKey } from '../redux/user';
+import { NavLink } from 'react-router-dom';
+import '../../pages/routingAppPages';
+import { useSelector, useDispatch } from 'react-redux';
+import { postUser, setValuesByKey } from '../../redux/user';
 import * as Icon from 'react-bootstrap-icons';
-import LogOut from './logout';
-function logOut(props) {
+function logOut(dispatch) {
   let text = 'אתה בטוח שאתה רוצה להתנתק';
   if (window.confirm(text) === true)
-    props.dispatch(setValuesByKey({ key: 'name', value: '' }));
+    dispatch(setValuesByKey({ key: 'firstName', value: '' }));
 }
-
-const Navbar = (props) => {
+const NavbarApp = () => {
+  const user = useSelector((state) => state.user);
+  const fullOrder = useSelector((state) => state.fullOrder);
+  const dispatch = useDispatch();
+  console.log(user.obj !== undefined ? user : '', 'ggg');
   return (
     <React.Fragment>
       <nav className="navbar navbar-expand-lg navbar bg-dark">
         <div className="container-fluid">
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            {props.user.name === '' ? (
+            {user.obj.firstName === '' ? (
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
                   <NavLink className="nav-link" to="/CreateUser">
@@ -26,6 +27,7 @@ const Navbar = (props) => {
                     <Icon.PersonLinesFill />
                   </NavLink>
                 </li>
+                <br />
                 <li className="nav-item">
                   <NavLink className="nav-link" to="/Login">
                     כניסה לחשבון&nbsp;
@@ -36,10 +38,10 @@ const Navbar = (props) => {
             ) : (
               <NavLink
                 className="nav-link"
-                onClick={() => logOut(props)}
+                onClick={() => logOut(dispatch)}
                 to="/"
               >
-                יציאה&nbsp;
+                יציאה
                 <Icon.DoorOpenFill />
               </NavLink>
             )}
@@ -54,8 +56,9 @@ const Navbar = (props) => {
               </li>
               <li className="nav-item">
                 <NavLink className="nav-link" to="/Cart">
-                  ({})עגלה&nbsp;
-                  <Icon.Cart />
+                  ({!fullOrder.obj.orders ? 0 : fullOrder.obj.orders.length}
+                  )הזמנות&nbsp;
+                  <Icon.InboxesFill />
                 </NavLink>
               </li>
               <li className="nav-item dropdown">
@@ -78,4 +81,4 @@ const Navbar = (props) => {
   );
 };
 
-export default Navbar;
+export default NavbarApp;
