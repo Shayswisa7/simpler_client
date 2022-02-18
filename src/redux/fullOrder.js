@@ -20,6 +20,7 @@ export const postFullOrder = createAsyncThunk(
    "id_phoneNumber": "",
   "orders": [],
   "shipping": {},
+  "cash": ture,
   "orderTime": "18-02",
   "price": []
   }
@@ -63,6 +64,9 @@ export const fullOrderSlice = createSlice({
       prices.sumPrice = sum;
       state.obj.price.push(prices);
       state.obj.orders.push(order);
+    },
+    addOrderInfo: (state, action) => {
+      state.obj.cash = action.payload['cash'];
       state.obj.shipping = action.payload['shipping'];
     },
     editOrder: (state, action) => {

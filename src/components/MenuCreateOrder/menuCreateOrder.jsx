@@ -9,6 +9,7 @@ import { NavLink } from 'react-router-dom';
 import { addOrder as addOrderAction } from '../../redux/fullOrder';
 import { useState } from 'react';
 import { Link } from 'react-bootstrap-icons';
+import { useEffect } from 'react';
 const CreateOrder = () => {
   const itemsInOrder = useSelector((state) => state.itemsInOrder);
   const fullOrder = useSelector((state) => state.fullOrder);
@@ -26,6 +27,8 @@ const CreateOrder = () => {
     }
     return itemsNamesArray;
   };
+  //show alert with imput.
+  useEffect(() => {}, []);
   const handelSubmit = () => {
     dispatch(
       setValuesAction({

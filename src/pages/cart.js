@@ -11,8 +11,8 @@ export default function Cart(props) {
   const itemsInOrder = useSelector((state) => state.itemsInOrder);
   const fullOrder = useSelector((state) => state.fullOrder);
   const dispatch = useDispatch();
-  console.log(props.nameClient);
-  if (props.nameClient) {
+  if (!props.nameClient) console.log('@');
+  else {
     console.log('samting');
     dispatch(() => addOrderAction(Object.assign(itemsInOrder.obj)));
   }
@@ -30,16 +30,19 @@ export default function Cart(props) {
         <table key="invoice">
           <thead></thead>
           <tbody>
-            <tr>
-              <th>{fullOrder.obj.fullName}</th>
-              {}:הזמנה על שם
-              <br />
-              <th>{fullOrder.obj.phoneNumber}</th>
-              {}:מספר פלא
+            <tr key="ht">
+              <th>
+                {fullOrder.obj.fullName}
+                {}:הזמנה על שם
+              </th>
+
+              <th>
+                {fullOrder.obj.phoneNumber} {}:מספר פלא
+              </th>
             </tr>
             {Object.keys(fullOrder.obj).map((key) => (
-              <tr>
-                <td>{key}:</td>
+              <tr key={key}>
+                <td>{key.toString()}:</td>
                 <td></td>
                 <td></td>
               </tr>
